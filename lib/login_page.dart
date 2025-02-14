@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home_page.dart';  // Halaman utama setelah login
+import 'home_page.dart';  // Hal utama set log
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         .select()
         .eq('username', username)
         .single()
-        .execute();
+        ._execute();
 
     if (response.error == null) {
       var user = response.data;
@@ -194,3 +194,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+extension on PostgrestTransformBuilder<PostgrestMap> {
+  _execute() {}
+}
+
+// nanti ku hapus
