@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
-import 'package:login_kasir/product/product_page.dart';
-import 'package:login_kasir/product/pembayaran.dart';
-import 'package:login_kasir/pelanggan/pelanggan_page.dart';
-import 'package:login_kasir/pages/akun.dart';
-import 'package:login_kasir/pages/register_page.dart'; // Import halaman Register
-import 'package:login_kasir/pages/TransaksiPage.dart'; // Import halaman Transaksi
+import 'package:ukk_2025/product/product_page.dart';
+import 'package:ukk_2025/product/pembayaran.dart';
+import 'package:ukk_2025/pelanggan/pelanggan_page.dart';
+import 'package:ukk_2025/pages/akun.dart';
+import 'package:ukk_2025/pages/register_page.dart'; // Import halaman Register
+import 'package:ukk_2025/pages/transaksi_page.dart'; // Import halaman Transaksi
 import 'userpage.dart'; // Import UserPage
 
 class HomePage extends StatefulWidget {
