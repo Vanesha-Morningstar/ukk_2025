@@ -22,11 +22,11 @@ class _HomePageState extends State<HomePage> {
 
   // Daftar halaman yang akan ditampilkan
   final List<Widget> _pages = [
-    Container(), 
-    TransaksiPage(), 
-    ProdukPage(), 
-    PelangganPage(), 
-    UsersPage(), 
+    Container(), // Halaman pertama (Home)
+    const TransaksiPage(), // Halaman kedua (Transaksi)
+    const ProdukPage(), // Halaman ketiga (Produk)
+    const PelangganPage(), // Halaman keempat (Pelanggan)
+    const UsersPage(), // Halaman kelima (User)
   ];
 
   // Mendapatkan username dari SharedPreferences
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     await prefs.clear(); // Menghapus data
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginPage()),
+      MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
 
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AkunPage()), // Navigasi ke halaman Akun
+                  MaterialPageRoute(builder: (context) => const AkunPage()), // Navigasi ke halaman Akun
                 );
               },
             ),
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()), // Navigasi ke halaman Registrasi
+                  MaterialPageRoute(builder: (context) => const RegisterPage()), // Navigasi ke halaman Registrasi
                 );
               },
             ),
@@ -332,7 +332,7 @@ class HomePageContent extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProdukPage()),
+                      MaterialPageRoute(builder: (context) => const ProdukPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

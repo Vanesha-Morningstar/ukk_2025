@@ -57,7 +57,7 @@ class WelcomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -66,7 +66,7 @@ class WelcomePage extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 18, color: Colors.white),
                     minimumSize: const Size(double.infinity, 50),
                   ),
-                  child: Text('Mulai'),
+                  child: const Text('Mulai'),
                 ),
               ),
             ],

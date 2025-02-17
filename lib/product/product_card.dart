@@ -9,7 +9,7 @@ class ProductCard extends StatelessWidget {
   final VoidCallback onEdit; // Menambahkan fungsi untuk edit produk
 
   // Parameter yang benar
-  ProductCard({
+  const ProductCard({super.key, 
     required this.productName,
     required this.priceText,
     required this.productStock,
@@ -21,7 +21,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -31,34 +31,34 @@ class ProductCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Icon(Icons.fastfood, size: 50, color: Colors.blueAccent),
-              SizedBox(width: 16),
+              const Icon(Icons.fastfood, size: 50, color: Colors.blueAccent),
+              const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     productName,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     priceText, // Menampilkan harga dengan format yang benar
-                    style: TextStyle(fontSize: 16, color: Colors.green),
+                    style: const TextStyle(fontSize: 16, color: Colors.green),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     'Stok: $productStock',
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
-                icon: Icon(Icons.edit, color: Colors.blue),
+                icon: const Icon(Icons.edit, color: Colors.blue),
                 onPressed: onEdit, // Memanggil fungsi untuk mengedit produk
               ),
               IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
+                icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: onDelete, // Memanggil fungsi untuk menghapus produk
               ),
             ],

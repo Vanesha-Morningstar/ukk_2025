@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:login_kasir/product/product_service.dart'; // Service produk
-import 'package:login_kasir/product/product_card.dart'; // Tampilan kartu produk
-import 'package:login_kasir/product/editprodukpage.dart'; // Halaman edit produk
-import 'package:login_kasir/product/add_product_page.dart'; // Halaman tambah produk
+import 'package:ukk_2025/product/product_service.dart'; // Service produk
+import 'package:ukk_2025/product/product_card.dart'; // Tampilan kartu produk
+import 'package:ukk_2025/product/editprodukpage.dart'; // Halaman edit produk
+import 'package:ukk_2025/product/add_product_page.dart'; // Halaman tambah produk
 
 class ProdukPage extends StatefulWidget {
+  const ProdukPage({super.key});
+
   @override
   _ProdukPageState createState() => _ProdukPageState();
 }
@@ -31,7 +33,7 @@ class _ProdukPageState extends State<ProdukPage> {
       });
     } catch (e) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Gagal mengambil data produk')));
+          .showSnackBar(const SnackBar(content: Text('Gagal mengambil data produk')));
     }
   }
 
@@ -54,12 +56,12 @@ class _ProdukPageState extends State<ProdukPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Konfirmasi Hapus"),
-          content: Text("Apakah Anda yakin ingin menghapus produk ini?"),
+          title: const Text("Konfirmasi Hapus"),
+          content: const Text("Apakah Anda yakin ingin menghapus produk ini?"),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Batal"),
+              child: const Text("Batal"),
             ),
             TextButton(
               onPressed: () {
@@ -67,7 +69,7 @@ class _ProdukPageState extends State<ProdukPage> {
                 _deleteProduct(productId);
               },
               style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.red),
-              child: Text("Hapus"),
+              child: const Text("Hapus"),
             ),
           ],
         );
@@ -84,10 +86,10 @@ class _ProdukPageState extends State<ProdukPage> {
         filteredProduk.removeWhere((item) => item['produk_id'] == productId);
       });
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Produk berhasil dihapus')));
+          .showSnackBar(const SnackBar(content: Text('Produk berhasil dihapus')));
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Gagal menghapus produk')));
+          .showSnackBar(const SnackBar(content: Text('Gagal menghapus produk')));
     }
   }
 
@@ -110,7 +112,7 @@ class _ProdukPageState extends State<ProdukPage> {
         }
       });
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Produk berhasil diperbarui')));
+          const SnackBar(content: Text('Produk berhasil diperbarui')));
     }
   }
 
@@ -118,15 +120,15 @@ class _ProdukPageState extends State<ProdukPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Produk'),
+        title: const Text('Produk'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () async {
               final result = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddProductPage(),
+                  builder: (context) => const AddProductPage(),
                 ),
               );
 
@@ -147,7 +149,7 @@ class _ProdukPageState extends State<ProdukPage> {
               onChanged: _searchProduk,
               decoration: InputDecoration(
                 hintText: "Cari produk...",
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -159,7 +161,7 @@ class _ProdukPageState extends State<ProdukPage> {
           // Daftar Produk
           Expanded(
             child: filteredProduk.isEmpty
-                ? Center(child: Text("Produk tidak ditemukan"))
+                ? const Center(child: Text("Produk tidak ditemukan"))
                 : ListView.builder(
                     itemCount: filteredProduk.length,
                     itemBuilder: (context, index) {

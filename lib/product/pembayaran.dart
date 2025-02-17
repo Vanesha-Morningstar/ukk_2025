@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:login_kasir/product/product_service.dart';
+import 'package:ukk_2025/product/product_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class PembayaranPage extends StatefulWidget {
   final List<String> keranjang;
 
-  PembayaranPage({Key? key, required this.keranjang}) : super(key: key);
+  const PembayaranPage({super.key, required this.keranjang});
 
   @override
   _PembayaranPageState createState() => _PembayaranPageState();
@@ -38,19 +38,19 @@ class _PembayaranPageState extends State<PembayaranPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Pembayaran Berhasil'),
+          title: const Text('Pembayaran Berhasil'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Nama Toko: Jul'),
+              const Text('Nama Toko: Jul'),
               Text('Tanggal: $tanggal'),
               Text('Pelanggan: $namaPelanggan'),
               if (diskon > 0)
                 Text('Diskon (3%): -${formatRupiah(diskon)}',
-                    style: TextStyle(color: Colors.green)),
+                    style: const TextStyle(color: Colors.green)),
               Text('Total: ${formatRupiah(totalHarga)}',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
             ],
           ),
           actions: [
@@ -59,7 +59,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
                 Navigator.pop(context);
                 Navigator.pop(context); // Menutup halaman pembayaran
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -102,7 +102,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
     } catch (e) {
       print('Error fetching products: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal mengambil data produk')),
+        const SnackBar(content: Text('Gagal mengambil data produk')),
       );
     }
   }
@@ -112,12 +112,12 @@ class _PembayaranPageState extends State<PembayaranPage> {
     try {
       var pelangganData = await _productService.fetchPelanggan();
       setState(() {
-        _pelangganList = (pelangganData as List).cast<Map<String, dynamic>>();
+        _pelangganList = (pelangganData).cast<Map<String, dynamic>>();
       });
     } catch (e) {
       print('Error fetching pelanggan: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal mengambil data pelanggan')),
+        const SnackBar(content: Text('Gagal mengambil data pelanggan')),
       );
     }
   }
@@ -206,10 +206,10 @@ class _PembayaranPageState extends State<PembayaranPage> {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Detail Transaksi'),
-              Text('Nama Toko: Jul', style: TextStyle(fontSize: 14, color: Colors.grey)),
-              Text('Tanggal: $tanggal', style: TextStyle(fontSize: 14, color: Colors.grey)),
-              Text('Pelanggan: $namaPelanggan', style: TextStyle(fontSize: 14, color: Colors.grey)),
+              const Text('Detail Transaksi'),
+              const Text('Nama Toko: Jul', style: TextStyle(fontSize: 14, color: Colors.grey)),
+              Text('Tanggal: $tanggal', style: const TextStyle(fontSize: 14, color: Colors.grey)),
+              Text('Pelanggan: $namaPelanggan', style: const TextStyle(fontSize: 14, color: Colors.grey)),
             ],
           ),
           content: Column(
@@ -239,7 +239,7 @@ class _PembayaranPageState extends State<PembayaranPage> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(formatRupiah(subtotal)),
-                          Text(
+                          const Text(
                             'Bulatkan ke 1000',
                             style: TextStyle(fontSize: 10, color: Colors.grey),
                           ),
@@ -249,16 +249,16 @@ class _PembayaranPageState extends State<PembayaranPage> {
                   ),
                 );
               }),
-              Divider(),
+              const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Subtotal:'),
+                  const Text('Subtotal:'),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(formatRupiah(totalTanpaDiskon)),
-                      Text(
+                      const Text(
                         'Bulatkan ke 1000',
                         style: TextStyle(fontSize: 10, color: Colors.grey),
                       ),
@@ -270,23 +270,23 @@ class _PembayaranPageState extends State<PembayaranPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Diskon (3%):', style: TextStyle(color: Colors.green)),
-                    Text('-${formatRupiah(diskon)}', style: TextStyle(color: Colors.green)),
+                    const Text('Diskon (3%):', style: TextStyle(color: Colors.green)),
+                    Text('-${formatRupiah(diskon)}', style: const TextStyle(color: Colors.green)),
                   ],
                 ),
-              Divider(),
+              const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  const Text('Total:', style: TextStyle(fontWeight: FontWeight.bold)),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         formatRupiah(totalSetelahDiskon),
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         'Bulatkan ke 1000',
                         style: TextStyle(fontSize: 10, color: Colors.grey),
                       ),
@@ -299,14 +299,14 @@ class _PembayaranPageState extends State<PembayaranPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Batal'),
+              child: const Text('Batal'),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
                 _konfirmasiPembayaran(namaPelanggan, tanggal, diskon);
               },
-              child: Text('Konfirmasi Pembayaran'),
+              child: const Text('Konfirmasi Pembayaran'),
             ),
           ],
         );
@@ -376,7 +376,7 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
   } catch (e) {
     print('Error during payment confirmation: $e');
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Pembayaran gagal, coba lagi')),
+      const SnackBar(content: Text('Pembayaran gagal, coba lagi')),
     );
   }
 }
@@ -386,7 +386,7 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Halaman Pembayaran'),
+        title: const Text('Halaman Pembayaran'),
         backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
@@ -396,7 +396,7 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
           children: [
             DropdownButton<Map<String, dynamic>>(
               isExpanded: true,
-              hint: Text('Pilih Pelanggan'),
+              hint: const Text('Pilih Pelanggan'),
               value: _selectedPelanggan,
               items: _pelangganList.map((pelanggan) {
                 return DropdownMenuItem<Map<String, dynamic>>(
@@ -411,30 +411,30 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
                 hitungTotalHarga();
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Cari Produk',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.search),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             if (_produkTidakDitemukan)
-              Center(
+              const Center(
                 child: Text('Produk tidak ditemukan',
                     style: TextStyle(color: Colors.red)),
               ),
             Expanded(
               child: filteredProdukList.isEmpty
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       itemCount: filteredProdukList.length,
                       itemBuilder: (context, index) {
                         var produk = filteredProdukList[index];
                         return Card(
-                          margin: EdgeInsets.symmetric(vertical: 8),
+                          margin: const EdgeInsets.symmetric(vertical: 8),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
@@ -444,11 +444,11 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(produk['nama_produk'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     Text(
                                       'Rp ${produk['harga'].toStringAsFixed(0)}',
-                                      style: TextStyle(color: Colors.green),
+                                      style: const TextStyle(color: Colors.green),
                                     ),
                                     Text('Stok: ${produk['stok']}'),
                                   ],
@@ -458,14 +458,14 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
                                     IconButton(
                                       onPressed: () => kurangiDariKeranjang(
                                           produk['produk_id']),
-                                      icon: Icon(Icons.remove,
+                                      icon: const Icon(Icons.remove,
                                           color: Colors.red),
                                     ),
                                     Text('${keranjang[produk['produk_id']] ?? 0}'),
                                     IconButton(
                                       onPressed: () => tambahKeKeranjang(
                                           produk['produk_id']),
-                                      icon: Icon(Icons.add,
+                                      icon: const Icon(Icons.add,
                                           color: Colors.green),
                                     ),
                                   ],
@@ -477,10 +477,10 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
                       },
                     ),
             ),
-            Divider(),
+            const Divider(),
             Text('Total Belanja: ${formatRupiah(totalHarga)}',
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 if (_selectedPelanggan == null) {
@@ -489,12 +489,12 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Pilih Pelanggan'),
-                        content: Text('Silakan pilih pelanggan terlebih dahulu sebelum melanjutkan.'),
+                        title: const Text('Pilih Pelanggan'),
+                        content: const Text('Silakan pilih pelanggan terlebih dahulu sebelum melanjutkan.'),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: Text('OK'),
+                            child: const Text('OK'),
                           ),
                         ],
                       );
@@ -509,12 +509,12 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Tidak Ada Produk'),
-                        content: Text('Silakan pilih produk terlebih dahulu!'),
+                        title: const Text('Tidak Ada Produk'),
+                        content: const Text('Silakan pilih produk terlebih dahulu!'),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: Text('OK'),
+                            child: const Text('OK'),
                           ),
                         ],
                       );
@@ -524,9 +524,9 @@ void _konfirmasiPembayaran(String namaPelanggan, String tanggal, int diskon) asy
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent,
-                padding: EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
-              child: Text('Proses Pembayaran', style: TextStyle(color: Colors.white)),
+              child: const Text('Proses Pembayaran', style: TextStyle(color: Colors.white)),
             )
           ],
         ),

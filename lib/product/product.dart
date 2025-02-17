@@ -9,10 +9,8 @@ class ProductService {
         .select()
         .execute();
 
-    if (response.error != null) {
-      throw response.error!;
-    }
-
+    throw response.error!;
+  
     return response.data;
   }
 }

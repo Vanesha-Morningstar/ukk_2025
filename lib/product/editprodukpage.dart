@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Untuk TextInputFormatter
-import 'package:login_kasir/product/product_service.dart';
+import 'package:ukk_2025/product/product_service.dart';
 import 'dart:io';
 
 class EditProdukPage extends StatefulWidget {
   final dynamic produk;
 
-  EditProdukPage({required this.produk});
+  const EditProdukPage({super.key, required this.produk});
 
   @override
   _EditProdukPageState createState() => _EditProdukPageState();
@@ -14,9 +14,9 @@ class EditProdukPage extends StatefulWidget {
 
 class _EditProdukPageState extends State<EditProdukPage> {
   final ProductService _productService = ProductService();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _priceController = TextEditingController();
-  TextEditingController _stockController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _stockController = TextEditingController();
   File? _imageFile;
 
   @override
@@ -42,7 +42,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
 
     if (price == null || stock == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Harga dan stok harus berupa angka yang valid')),
+        const SnackBar(content: Text('Harga dan stok harus berupa angka yang valid')),
       );
       return;
     }
@@ -66,7 +66,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Gagal memperbarui produk')),
+        const SnackBar(content: Text('Gagal memperbarui produk')),
       );
     }
   }
@@ -74,7 +74,7 @@ class _EditProdukPageState extends State<EditProdukPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Produk')),
+      appBar: AppBar(title: const Text('Edit Produk')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -82,33 +82,33 @@ class _EditProdukPageState extends State<EditProdukPage> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nama Produk'),
+              decoration: const InputDecoration(labelText: 'Nama Produk'),
             ),
             TextField(
               controller: _priceController,
-              decoration: InputDecoration(labelText: 'Harga'),
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              decoration: const InputDecoration(labelText: 'Harga'),
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
               ],
             ),
             TextField(
               controller: _stockController,
-              decoration: InputDecoration(labelText: 'Stok'),
+              decoration: const InputDecoration(labelText: 'Stok'),
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: _pickImage,
-              child: Text('Pilih Gambar'),
+              child: const Text('Pilih Gambar'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: _saveChanges,
-              child: Text('Simpan Perubahan'),
+              child: const Text('Simpan Perubahan'),
             ),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home_page.dart';  // Hal utama set log
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,29 +18,25 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _checkLoginStatus(); // Periksa status login ketika halaman dimuat
+    _checkLoginStatus();
   }
 
-  // Memeriksa apakah pengguna sudah login
   Future<void> _checkLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
 
-    // Jika sudah login, arahkan ke halaman Home
     if (isLoggedIn) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     }
   }
 
-  // Fungsi login
   Future<void> login() async {
     final username = usernameController.text;
     final password = passwordController.text;
 
-    // Validasi input username dan password
     if (username.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Username and password cannot be empty')),
@@ -48,27 +44,24 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // Query ke Supabase untuk verifikasi login
     final response = await Supabase.instance.client
-        .from('users')  // Ganti dengan tabel yang sesuai di Supabase Anda
+        .from('users')
         .select()
         .eq('username', username)
         .single()
-        ._execute();
+        .execute();
 
     if (response.error == null) {
       var user = response.data;
       if (user != null && user['password'] == password) {
-        // Menyimpan username, role, dan status login ke SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('username', username);  // Simpan username
-        await prefs.setString('role', user['role']);  // Simpan role pengguna
-        await prefs.setBool('isLoggedIn', true);      // Simpan status login
+        await prefs.setString('username', username);
+        await prefs.setString('role', user['role']);
+        await prefs.setBool('isLoggedIn', true);
 
-        // Arahkan ke halaman utama setelah login berhasil
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -76,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     } else {
-      // Menampilkan error dari Supabase jika login gagal
       print('Error: ${response.error!.message}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Login failed: ${response.error!.message}')),
@@ -86,104 +78,121 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();  // Menyembunyikan keyboard saat tapping di luar
-      },
-      child: Scaffold(
-        backgroundColor: const Color(0xFF0D47A1),  // Warna latar belakang halaman login lebih gelap
-        body: SafeArea(
-          top: true,
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF1D1E33), Color(0xFF3E3F65)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 40),
-                const Center(
-                  child: Text(
-                    'Masuk', 
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,  // Warna teks judul menjadi putih
-                    ),
+                const Text(
+                  'Welcome Back',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 40),
-                
-                // Form login
                 Container(
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1565C0),  // Warna kotak form login lebih cerah
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.blue, width: 2),
+                    color: Colors.purple.shade700,
+                    borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 2),
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Username', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                       TextField(
                         controller: usernameController,
                         decoration: InputDecoration(
-                          hintText: 'Masukkan Username',
+                          hintText: 'Username',
+                          hintStyle: TextStyle(color: Colors.white70),
                           filled: true,
-                          fillColor: const Color(0xFFF1F8E9),  // Ganti warna background inputan
+                          fillColor: Colors.white.withOpacity(0.1),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
                           ),
                         ),
+                        style: TextStyle(color: Colors.white),
                       ),
                       const SizedBox(height: 20),
-                      const Text('Password', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
                       TextField(
                         controller: passwordController,
-                        obscureText: !passwordVisibility,  // Mengatur visibilitas password
+                        obscureText: !passwordVisibility,
                         decoration: InputDecoration(
-                          hintText: 'Masukkan Password',
+                          hintText: 'Password',
+                          hintStyle: TextStyle(color: Colors.white70),
                           filled: true,
-                          fillColor: const Color(0xFFF1F8E9),  // Ganti warna background inputan
+                          fillColor: Colors.white.withOpacity(0.1),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
                           ),
-                          suffixIcon: InkWell(
-                            onTap: () {
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              passwordVisibility
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white70,
+                            ),
+                            onPressed: () {
                               setState(() {
-                                passwordVisibility = !passwordVisibility;  // Toggle visibilitas password
+                                passwordVisibility = !passwordVisibility;
                               });
                             },
-                            child: Icon(
-                              passwordVisibility
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                              color: Colors.black,
-                            ),
                           ),
                         ),
+                        style: TextStyle(color: Colors.white),
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 30),
                       ElevatedButton(
-                        onPressed: login,  // Panggil fungsi login saat tombol diklik
+                        onPressed: login,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF03346E),  // Ganti dengan warna #03346E
+                          backgroundColor: Colors.purpleAccent,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           minimumSize: const Size(double.infinity, 50),
                         ),
-                        child: const Text('Masuk', style: TextStyle(fontSize: 18, color: Colors.white)),
+                        child: const Text(
+                          'Log in',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    ' ',
+                    style: TextStyle(color: Colors.white70),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    ' ',
+                    style: TextStyle(color: Colors.white70),
                   ),
                 ),
               ],
@@ -194,9 +203,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-extension on PostgrestTransformBuilder<PostgrestMap> {
-  _execute() {}
-}
-
-// nanti ku hapus

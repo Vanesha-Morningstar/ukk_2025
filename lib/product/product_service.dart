@@ -50,7 +50,7 @@ class ProductService {
       }
 
       // Mendapatkan URL gambar yang telah di-upload
-      final imageUrl = await client.storage
+      final imageUrl = client.storage
           .from('produk-images')
           .getPublicUrl(fileName);
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:login_kasir/product/product_service.dart';
+import 'package:ukk_2025/product/product_service.dart';
 import 'package:flutter/services.dart';  // Untuk TextInputFormatter
 
 class AddProductPage extends StatefulWidget {
+  const AddProductPage({super.key});
+
   @override
   _AddProductPageState createState() => _AddProductPageState();
 }
@@ -28,12 +30,12 @@ class _AddProductPageState extends State<AddProductPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Produk berhasil ditambahkan')),
+          const SnackBar(content: Text('Produk berhasil ditambahkan')),
         );
         Navigator.pop(context, true); // Kembali ke halaman produk dengan status true
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal menambahkan produk')),
+          const SnackBar(content: Text('Gagal menambahkan produk')),
         );
       }
     }
@@ -43,7 +45,7 @@ class _AddProductPageState extends State<AddProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah Produk'),
+        title: const Text('Tambah Produk'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -52,7 +54,7 @@ class _AddProductPageState extends State<AddProductPage> {
           child: ListView(
             children: [
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Nama Produk',
                   hintText: 'Masukkan Nama Produk',
                 ),
@@ -67,7 +69,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Harga (Angka saja)',
                   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                 ),
@@ -84,7 +86,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Stok (Angka saja)',
                   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                 ),
@@ -100,10 +102,10 @@ class _AddProductPageState extends State<AddProductPage> {
                   _stock = int.parse(value!);
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: _submitProduct,
-                child: Text('Tambah Produk'),
+                child: const Text('Tambah Produk'),
               ),
             ],
           ),
